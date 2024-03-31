@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Задача №4</title>
+  </head>
+  <body>
+    <h1>
+      Задача 4. Для розглянутих методів сортування спробувати вивести етапи
+      сортування шляхом виведення відповідних таблиць за зразком .
+    </h1>
+
+    <script>
+      let arrForBubble = [3, 5, 1, 4, 2];
+      let arrForShake = [3, 5, 1, 4, 2];
+      let arrForInclusion = [3, 5, 1, 4, 2];
+      function swap(arr, a, b) {
+        let temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+      }
+      document.write("Етапи сортування бульбашкою<br>");
+      let changed;
+      do {
+        changed = false;
+        for (let i = 1; i < arrForBubble.length; i++) {
+          if (arrForBubble[i - 1] > arrForBubble[i]) {
+            swap(arrForBubble, i - 1, i);
+            changed = true;
+          }
+          document.write(`[ ${arrForBubble} ]<br>`);
+        }
+      } while (changed);
+
+      document.write("<br><br>Етапи сортування змішуванням<br>");
+      let leftIndex = 0;
+      let rightIndex = arrForShake.length;
+      while (leftIndex < rightIndex) {
+        let changed = true;
+        for (let i = leftIndex + 1; i < rightIndex; i++) {
+          if (arrForShake[i - 1] > arrForShake[i]) {
+            swap(arrForShake, i - 1, i);
+            changed = true;
+          }
+          document.write(`[ ${arrForShake} ]<br>`);
+        }
+        if (changed === false) break;
+        rightIndex--;
+
+        changed = false;
+        for (let i = rightIndex; i > leftIndex; i--) {
+          if (arrForShake[i - 1] > arrForShake[i]) {
+            swap(arrForShake, i - 1, i);
+            changed = true;
+          }
+          document.write(`[ ${arrForShake} ]<br>`);
+        }
+        if (changed === false) break;
+        leftIndex++;
+      }
+
+      document.write("<br><br>Етапи сортування включеннями<br>");
+      for (let k = 1; k < arrForInclusion.length; k++) {
+        let key = arrForInclusion[k];
+        let i = k - 1;
+        while (i >= 0 && arrForInclusion[i] > key) {
+          arrForInclusion[i + 1] = arrForInclusion[i];
+          i--;
+        }
+        arrForInclusion[i + 1] = key;
+        document.write(`[ ${arrForInclusion} ]<br>`);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Задача №6</title>
+  </head>
+  <body>
+    <h1>
+      Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук
+      визначити, чи є у масиві ім’я довжиною 5 символів і під яким індексом.
+    </h1>
+
+    <script>
+      let names = [
+        "Olga",
+        "Vladimir",
+        "Anna",
+        "Dmitry",
+        "Alexander",
+        "Catherine",
+        "Ivan",
+        "Maria",
+        "Sergei",
+        "Natalia",
+      ];
+      document.write(`${names}<br><br>`);
+      let prevIndex = names.length - 1;
+      for (let i = 0; i < prevIndex; i++) {
+        let minIndex = i;
+        for (let j = i + 1; j < names.length; j++) {
+          if (names[j].length < names[minIndex].length) minIndex = j;
+        }
+        if (minIndex !== i) {
+          let temp = names[i];
+          names[i] = names[minIndex];
+          names[minIndex] = temp;
+        }
+      }
+      document.write(`Відсортований масив <br>${names}<br>`);
+
+      let search = 5;
+      let start = 0;
+      let end = names.length - 1;
+      let res;
+      while (start <= end) {
+        let middle = Math.floor((start + end) / 2);
+        if (names[middle].length === search) {
+          res = middle;
+          break;
+        }
+        if (names[middle].length < search) start = middle + 1;
+        if (names[middle].length > search) end = middle - 1;
+      }
+      if (res === undefined) document.write(`Імʼя довжиною в 5 символів немає`);
+      else
+        document.write(
+          `Імʼя довжиною в 5 символів знаходиться під індексом ${res}`
+        );
+    </script>
+  </body>
+</html>

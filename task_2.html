@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Задача №2</title>
+  </head>
+  <body>
+    <h1>
+      Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів та
+      порівнянь чисел під час сортування змішуванням.
+    </h1>
+    <script>
+      function swap(arr, num1, num2) {
+        let temp = arr[num1];
+        arr[num1] = arr[num2];
+        arr[num2] = temp;
+      }
+      function getRandomArr(min, max, quantityNum) {
+        let arr = [];
+        for (let i = 0; i < quantityNum; i++) {
+          let randomNum = min + Math.floor(Math.random() * (max - min + 1));
+          arr.push(randomNum);
+        }
+        return arr;
+      }
+
+      let arr = getRandomArr(-50, 100, 30);
+      document.write(`<h3>Початковий масив</h3>`);
+      for (const num of arr) {
+        document.write(`${num} `);
+      }
+      let comparison = 0;
+      let changes = 0;
+      let leftIndex = 0;
+      let rightIndex = arr.length;
+      while (leftIndex < rightIndex) {
+        comparison++;
+        let changed = false;
+        for (let i = leftIndex + 1; i < rightIndex; i++) {
+          if (arr[i - 1] > arr[i]) {
+            swap(arr, i - 1, i);
+            changed = true;
+            changes++;
+          }
+        }
+        if (changed === false) break;
+        rightIndex--;
+
+        changed = false;
+        for (let i = rightIndex; i > leftIndex; i--) {
+          if (arr[i - 1] > arr[i]) {
+            swap(arr, i - 1, i);
+            changed = true;
+          }
+        }
+        if (changed === false) break;
+        leftIndex++;
+      }
+
+      document.write(`<h3>Відсортований масив</h3>`);
+      for (const num of arr) {
+        document.write(`${num} `);
+      }
+      document.write(
+        `<br>Кількість обмінів - ${changes} , порівнянь - ${comparison}`
+      );
+    </script>
+  </body>
+</html>
